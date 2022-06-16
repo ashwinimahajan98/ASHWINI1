@@ -1,0 +1,129 @@
+#include<iostream.h>
+#include<conio.h>
+
+class NODE
+{
+	public :
+		int data;
+		NODE *next;
+};
+
+class QUEUE
+{
+	private :
+		 NODE *front, *rear;
+
+	public :
+		QUEUE();
+		void ADD(int ele);
+		int DELETE();
+		void VIEW_ALL();
+};
+
+QUEUE :: QUEUE()
+{
+	front=rear= NULL;
+}
+
+void QUEUE :: ADD(int ele)
+{
+	NODE *NEW = new NODE();
+	NEW -> data = ele;
+	NEW -> next = NULL;
+	if(front == NULL)
+	{
+		front=NEW;
+		rear=NEW;
+	}
+	else
+	{
+		rear -> next = NEW;
+		rear = NEW;
+	}
+}
+
+int QUEUE :: DELETE()
+{
+	if(front == NULL)
+	{
+		cout<<"\nList is empty.";
+		return NULL;
+	}
+	else
+	{
+		int ele = front ->data;
+		NODE *TEMP=front;
+		if(front==rear)
+		{
+			rear=NULL;
+		}
+		front =front->next;
+		delete TEMP;
+		return ele;
+	}
+}
+
+void QUEUE :: VIEW_ALL()
+{
+	if(front==NULL)
+	{
+		cout<<"QUEUE IS NULL";
+	}
+	else
+	{
+		NODE *ptr;
+		ptr=front;
+		while(ptr != NULL)
+		{
+			cout<<ptr->data<<" ";
+			ptr = ptr -> next;
+		}
+	}
+
+}
+
+
+void MENU()
+{
+	QUEUE obj;
+	int opt,ele;
+	do
+	{
+		cout<<"\n........"<<endl;
+		cout<<"\n1.ADD.";
+		cout<<"\n2.DELETE.";
+		cout<<"\n3.List All.";
+		cout<<"\n4.Exit.";
+		cout<<"\n........"<<endl;
+		cout<<"\nEnter your option : ";
+		cin>>opt;
+		switch(opt)
+		{
+			case 1 :
+				cout<<"Enter the element : "<<endl;
+				cin>>ele;
+				obj.ADD(ele);
+				break;
+			case 2 :
+				ele = obj.DELETE();
+				if(ele != NULL)
+				cout<<endl<<ele<<" delete.";
+				break;
+			case 3 :
+				obj.VIEW_ALL();
+				break;
+			case 4 :
+				return;
+
+
+		}
+
+	}while(1);
+}
+
+void main()
+{
+	clrscr();
+	MENU();
+	getch();
+}
